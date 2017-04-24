@@ -23,13 +23,14 @@ app.get('/', function(req, res){
 
 app.get('/signin', function(req, res){
   console.log('signing in...');
-  res.cookie('name', 'justin').send('cookie sent');
+  res.cookie('name', 'justin');
+  res.render('signin-bounce');
 })
 
 app.get('/signout', function(req, res){
   console.log('signed out!');
   res.clearCookie('name');
-  res.send("Signed Out.");
+  res.send("Signed Out.<html><body><a href='/'>Homepage</a></body></html>");
   console.log('cookie: ', res.cookie.name);
 })
 
