@@ -14,7 +14,9 @@ app.set('view engine', 'pug');
 app.get('/', function(req, res){
   console.log('Cookies Name: ', req.cookies);
   if(req.cookies.name){
-    res.render('index');
+    res.render('index', {
+      name: req.cookies.name
+    });
   }
   else{
     res.render('signin');
