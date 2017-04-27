@@ -6,6 +6,8 @@ var path = require('path');
 app.set('port', 3000);
 app.use(cookieParser());
 
+var index = require('./routes/index.js');
+app.use('/', index);
 //set views
 //app.set('views', path(__dirname, 'views'));
 app.set('view engine', 'pug');
