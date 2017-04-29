@@ -2,6 +2,9 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var app = express();
 var path = require('path');
+var routes = require('./routes');
+var signout = require('./routes/signout');
+var mysql = require('mysql');
 
 app.set('port', 3000);
 app.use(cookieParser());
@@ -23,17 +26,25 @@ app.get('/', function(req, res){
   }
 })
 
-app.get('/signin', function(req, res){
-  console.log('signing in...');
-  res.cookie('name', 'justin');
-  res.render('signin-bounce');
+app.use('/sql', function(req, res, next){
+  console.log("SQL Data");
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "pickem"
+  });
+  con.query('SELECT * FROM schedule', function(err, rows){
+      if(err) throw err;
+        console.log(rows);
+  });
+  res.send("Check console logs");
+  next();
 })
 
-app.get('/signout', function(req, res){
-  console.log('signed out!');
-  res.clearCookie('name');
-  res.send("Signed Out.<html><body><a href='/'>Homepage</a></body></html>");
-  console.log('cookie: ', res.cookie.name);
-})
+app.use('/api', routes);
+app.use('/sys', signout);
+
+
 
 app.listen(app.get('port'));
