@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 
 //connect to database
 mongoose.connect(dburl.url());
-//seed the database
+//seed the database @ /api/seedSchedule//
 seedCtlr(app);
 
 app.use('/api', routes);
