@@ -3,18 +3,20 @@ var router = express.Router();
 
 var ctlrAPI = require('../controller/apiController.js');
 var schAPI = require('../controller/scheduleCtlr.js');
+var liveAPI = require('../controller/liveCtlr.js');
+var picksAPI = require('../controller/pickCtlr.js');
 
-router.get('/picks/:weeknum', ctlrAPI.getAllPicks);
-
-router.get('/picks/:user/:weeknum', ctlrAPI.getMyPicks);
+//Picks APIs
+router.get('/picks/:weeknum', picksAPI.getAllPicks);
+router.get('/picks/:user/:weeknum', picksAPI.getMyPicks);
 
 //Schedule APIs
 router.get('/schedule', schAPI.showSchedule);
-router.get('/schedule/:team([a-z]{2,4})', schAPI.showTeamSchedule);
-router.get('/schedule/:week([0-9])', schAPI.showWeekSchedule);
+router.get('/schedule/:team([A-Z]{2,3})', schAPI.showTeamSchedule);
+router.get('/schedule/:week([0-9]{1,2})', schAPI.showWeekSchedule);
 
 //Live Score APIs
-router.get('/schedule/liveg/', schAPI.showLive);
+router.get('/schedule/live/', liveAPI.showLive);
 
 //Standing APIs
 

@@ -8,7 +8,7 @@ module.exports.showSchedule = function(req, res){
   collection
   .find()
   .toArray(function(err, docs){
-    console.log("Found schedule");
+    console.log("Found Full schedule");
     res.json(docs);
   });
 }
@@ -25,8 +25,13 @@ module.exports.showSchedule = function(req, res){
       ]
     })
     .toArray(function(err, docs){
-      console.log("Found schedule");
-      res.json(docs);
+      console.log("Found Team schedule", docs.length);
+      if(0 < docs.length){
+        res.json(docs);
+      }
+      else {
+        res.send("Bad Request: No team schedules");
+      }
     })
 };
 
@@ -38,20 +43,12 @@ module.exports.showWeekSchedule = function(req, res){
     'week': parseInt(req.params.week, 10)
   })
   .toArray(function(err, docs){
-    console.log("Found schedule", docs);
-    res.json(docs);
-  })
-};
-
-module.exports.showLive = function(req, res){
-  var db = dbconn.get();
-  var collection = db.collection('schedules');
-  collection
-  .find({
-    'live': { $exists: true },
-  }/* How to narrow fields down ,{live: 1, homeTeam: 1, awayTeam: 1}*/)
-  .toArray(function(err, docs){
-    console.log("Live games found", docs);
-    res.json(docs);
+    console.log("Found weekly schedule", docs.length);
+    if(0 < docs.length){
+      res.json(docs);
+    }
+    else {
+      res.send("Bad Request: No schedule for this week");
+    }
   })
 };
