@@ -9,11 +9,12 @@ module.exports.getAllPicks = function(req, res) {
     //null
   }, { homeTeam: 1, awayTeam: 1, homePick:1, awayPick:1})
   .toArray(function(err, docs){
-    console.log("Found Full schedule");
+    console.log("Displaying ALL picks");
     res.json(docs);
   });
 }
 
+//Grabs only the logged in users team//
 module.exports.getMyPicks = function(req, res) {
   var db = dbconn.get();
   var collection = db.collection('schedules');
@@ -22,15 +23,12 @@ module.exports.getMyPicks = function(req, res) {
   console.log("User: " + user + " Week#: " + week);
   collection
   .find({
-    $or: [
-        { 'picks.home': req.params.user},
-        { 'picks.away': req.params.user}
-      ],
-      'week': parseInt(week, 10)
-  }, { homeTeam: 1, awayTeam: 1, matchid:1, picks:1})
-  ////////////   How to only show my pick team???? /////////////////
+    'picks.user': user,
+    'week': parseInt(week, 10)
+  }, { homeTeam: 1, awayTeam: 1, matchid:1, picks:{$elemMatch: {user: user}}})
+
   .toArray(function(err, docs){
-    console.log("Found Full schedule");
+    console.log("Displaying MY picks");
     res.json(docs);
   });
 }

@@ -7,6 +7,7 @@ var signout = require('./routes/signout');
 var mysql = require('mysql');
 var mongoose = require('mongoose');
 var seedCtlr = require('./controller/seedCtlr.js');
+var scheduleSeeder = require('./controller/scheduleModel.js');
 require('./data/dbconnection.js').open();
 var dburl = require('./data/dbconnection.js');
 
@@ -33,7 +34,8 @@ app.get('/', function(req, res){
 //connect to database
 mongoose.connect(dburl.url());
 //seed the database @ /api/seedSchedule//
-seedCtlr(app);
+//seedCtlr(app);
+scheduleSeeder(app);
 
 app.use('/api', routes);
 app.use('/sys', signout);

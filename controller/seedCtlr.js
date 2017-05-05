@@ -1,4 +1,4 @@
-var schedule = require('../models/scheduleModel');
+/*var schedule = require('../models/scheduleModel');
 
 module.exports = function(app) {
   app.get('/api/seedSchedule', function(req, res) {
@@ -38,3 +38,4 @@ module.exports = function(app) {
     });
   });
 }
+*/

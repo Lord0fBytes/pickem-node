@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectId;
 
 module.exports.showSchedule = function(req, res){
   var db = dbconn.get();
-  var collection = db.collection('schedules');
+  var collection = db.collection('schedule2');
   collection
   .find()
   .toArray(function(err, docs){
@@ -15,7 +15,7 @@ module.exports.showSchedule = function(req, res){
 
   module.exports.showTeamSchedule = function(req, res){
     var db = dbconn.get();
-    var collection = db.collection('schedules');
+    var collection = db.collection('schedule2');
     collection
     .find({
       $or:
@@ -37,11 +37,13 @@ module.exports.showSchedule = function(req, res){
 
 module.exports.showWeekSchedule = function(req, res){
   var db = dbconn.get();
-  var collection = db.collection('schedules');
+  var collection = db.collection('schedule2');
+  var weeknum = req.params.week;
   collection
   .find({
-    'week': parseInt(req.params.week, 10)
+    'gameWeek': weeknum.toString()
   })
+  .sort({gameId:1})
   .toArray(function(err, docs){
     console.log("Found weekly schedule", docs.length);
     if(0 < docs.length){
