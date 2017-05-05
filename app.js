@@ -8,6 +8,7 @@ var mysql = require('mysql');
 var mongoose = require('mongoose');
 var seedCtlr = require('./controller/seedCtlr.js');
 var scheduleSeeder = require('./controller/scheduleModel.js');
+var rantSeeder = require('./controller/rantSeeder.js');
 require('./data/dbconnection.js').open();
 var dburl = require('./data/dbconnection.js');
 
@@ -36,6 +37,7 @@ mongoose.connect(dburl.url());
 //seed the database @ /api/seedSchedule//
 //seedCtlr(app);
 scheduleSeeder(app);
+rantSeeder(app);
 
 app.use('/api', routes);
 app.use('/sys', signout);

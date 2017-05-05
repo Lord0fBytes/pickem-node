@@ -1,6 +1,6 @@
 {
   "name": "Pickem",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Pickem for NodeJS",
   "main": "app.js",
   "dependencies": {
