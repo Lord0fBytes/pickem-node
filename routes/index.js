@@ -5,6 +5,7 @@ var ctlrAPI = require('../controller/apiController.js');
 var schAPI = require('../controller/scheduleCtlr.js');
 var liveAPI = require('../controller/liveCtlr.js');
 var picksAPI = require('../controller/pickCtlr.js');
+var rantAPI = require('../controller/rantCtlr.js');
 
 //Picks APIs
 router.get('/picks/:weeknum', picksAPI.getAllPicks);
@@ -22,7 +23,11 @@ router.get('/schedule/live/', liveAPI.showLive);
 
 
 //SmackTalk APIs
-
+router.get('/smacktalk', rantAPI.getForumList);
+router.get('/smacktalk/:id', rantAPI.getForumOne);
+router.post('/smacktalk/:id', rantAPI.postNewRant);
+router.put('/smacktalk/:id', rantAPI.putUpdateRant);
+router.put('/smacktalk/:id', rantAPI.delRemoveRant);
 
 //Invalid URL
 router.get('*', function(req, res){
