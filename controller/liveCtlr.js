@@ -1,6 +1,8 @@
 var dbconn = require('../data/dbconnection.js');
 var ObjectId = require('mongodb').ObjectId;
 
+//NEED TO CONVERT TO MONGOOSE //
+
 module.exports.showLive = function(req, res){
   var db = dbconn.get();
   var collection = db.collection('schedules');

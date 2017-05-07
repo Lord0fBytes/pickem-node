@@ -1,3 +1,4 @@
+require('./data/db.js');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var app = express();
@@ -9,11 +10,13 @@ var mongoose = require('mongoose');
 var seedCtlr = require('./controller/seedCtlr.js');
 var scheduleSeeder = require('./controller/scheduleModel.js');
 var rantSeeder = require('./controller/rantSeeder.js');
-require('./data/dbconnection.js').open();
+//require('./data/dbconnection.js').open();
 var dburl = require('./data/dbconnection.js');
+var bodyParser = require('body-parser');
 
 app.set('port', 3000);
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: false}));
 
 //set views
 //app.set('views', path(__dirname, 'views'));

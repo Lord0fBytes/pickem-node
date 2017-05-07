@@ -1,22 +1,28 @@
-var dbconn = require('../data/dbconnection.js');
-var ObjectId = require('mongodb').ObjectId;
+var mongoose = require('mongoose');
+var Schedule = mongoose.model('schedule2');
 
 
 module.exports.showSchedule = function(req, res){
-  var db = dbconn.get();
-  var collection = db.collection('schedule2');
-  collection
+  Schedule
   .find()
-  .toArray(function(err, docs){
-    console.log("Found Full schedule");
-    res.json(docs);
+  .exec(function(err, schedule) {
+    console.log(err);
+    console.log(schedule);
+    if (err) {
+      console.log("Error finding schedules");
+      res
+        .status(500)
+        .json(err);
+    } else {
+      console.log("Found schedule", schedule.length);
+      res
+        .json(schedule);
+    }
   });
 }
 
   module.exports.showTeamSchedule = function(req, res){
-    var db = dbconn.get();
-    var collection = db.collection('schedule2');
-    collection
+    Schedule
     .find({
       $or:
       [
@@ -24,33 +30,41 @@ module.exports.showSchedule = function(req, res){
         {'awayTeam': req.params.team}
       ]
     })
-    .toArray(function(err, docs){
-      console.log("Found Team schedule", docs.length);
-      if(0 < docs.length){
-        res.json(docs);
+    .exec(function(err, schedule) {
+      console.log(err);
+      console.log(schedule);
+      if (err) {
+        console.log("Error finding schedules");
+        res
+          .status(500)
+          .json(err);
+      } else {
+        console.log("Found schedule", schedule.length);
+        res
+          .json(schedule);
       }
-      else {
-        res.send("Bad Request: No team schedules");
-      }
-    })
+    });
 };
 
 module.exports.showWeekSchedule = function(req, res){
-  var db = dbconn.get();
-  var collection = db.collection('schedule2');
   var weeknum = req.params.week;
-  collection
+  Schedule
   .find({
     'gameWeek': weeknum.toString()
   })
   .sort({gameId:1})
-  .toArray(function(err, docs){
-    console.log("Found weekly schedule", docs.length);
-    if(0 < docs.length){
-      res.json(docs);
+  .exec(function(err, schedule) {
+    console.log(err);
+    console.log(schedule);
+    if (err) {
+      console.log("Error finding schedules");
+      res
+        .status(500)
+        .json(err);
+    } else {
+      console.log("Found schedule", schedule.length);
+      res
+        .json(schedule);
     }
-    else {
-      res.send("Bad Request: No schedule for this week");
-    }
-  })
+  });
 };

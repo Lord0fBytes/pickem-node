@@ -1,34 +1,49 @@
-var dbconn = require('../data/dbconnection.js');
-var ObjectId = require('mongodb').ObjectId;
+var mongoose = require('mongoose');
+var Picks = mongoose.model('schedule2');
 
 module.exports.getAllPicks = function(req, res) {
-  var db = dbconn.get();
-  var collection = db.collection('schedules');
-  collection
+  Picks
   .find({
     //null
   }, { homeTeam: 1, awayTeam: 1, homePick:1, awayPick:1})
-  .toArray(function(err, docs){
-    console.log("Displaying ALL picks");
-    res.json(docs);
+  .exec(function(err, picks) {
+    console.log(err);
+    console.log(picks);
+    if (err) {
+      console.log("Error finding picks");
+      res
+        .status(500)
+        .json(err);
+    } else {
+      console.log("Found picks", picks.username);
+      res
+        .json(picks);
+    }
   });
 }
 
 //Grabs only the logged in users team//
 module.exports.getMyPicks = function(req, res) {
-  var db = dbconn.get();
-  var collection = db.collection('schedules');
   var user = req.params.user;
   var week = req.params.weeknum;
   console.log("User: " + user + " Week#: " + week);
-  collection
+  Picks
   .find({
     'picks.user': user,
     'week': parseInt(week, 10)
   }, { homeTeam: 1, awayTeam: 1, matchid:1, picks:{$elemMatch: {user: user}}})
-
-  .toArray(function(err, docs){
-    console.log("Displaying MY picks");
-    res.json(docs);
+  .exec(function(err, picks) {
+    console.log(err);
+    console.log(picks);
+    if (err) {
+      console.log("Error finding picks");
+      res
+        .status(500)
+        .json(err);
+    } else {
+      console.log("Found picks", picks.username);
+      res
+        .json(picks);
+    }
   });
 }

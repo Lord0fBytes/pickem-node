@@ -17,10 +17,11 @@ var userSchema = new Schema({
     comments: Number
   },
   recovery: String,
-  last_login: String,
+  last_login: {
+    type: Date,
+    "default": Date.now
+  },
   ip_address: String
 });
 
-var user = mongoose.model('users', userSchema);
-
-module.exports = user;
+mongoose.model('users', userSchema);

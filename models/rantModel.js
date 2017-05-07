@@ -5,7 +5,10 @@ var commentSchema = new Schema({
   commentId: Number,
   commentAuthor: String,
   comment: String,
-  tstamp: Date
+  tstamp: {
+    type : Date,
+    "default" : Date.now
+  }
 });
 
 var rantSchema = new Schema({
