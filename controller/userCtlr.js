@@ -57,3 +57,22 @@ module.exports.postAddUser = function(req, res){
       }
     })
 };
+
+module.exports.getStandings = function(req, res){
+  User
+    .find({}, {stats:1})
+    .exec(function(err, stats) {
+      if(err){
+        console.log("Error getting stats");
+        res
+          .status(400)
+          .json(err);
+      }
+      else{
+        console.log("Stat here");
+        res
+          .status(201)
+          .json(stats);
+      }
+    });
+};
