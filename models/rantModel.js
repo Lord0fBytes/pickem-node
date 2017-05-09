@@ -17,7 +17,10 @@ var rantSchema = new Schema({
   author: String,
   authoremail: String,
   rantId: Number,
-  tstamp: Date,
+  tstamp: {
+    type: Date,
+    "default" : Date.now
+  },
   comments: [commentSchema]
 });
 

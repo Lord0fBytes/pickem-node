@@ -31,7 +31,7 @@ router
   .get('/smacktalk/:id', rantAPI.getForumOne) //DONE
   .put('/smacktalk/:id', rantAPI.putUpdateRant)
   .delete('/smacktalk/:id', rantAPI.delRemoveRant);
-router.post('/smacktalk/', rantAPI.postNewRant);
+router.post('/smacktalk/', rantAPI.postNewRant);//DONE
 //Comments APIs
 router
   .get('/smacktalk/:id/comment/:commentId', commentAPI.getComment)
