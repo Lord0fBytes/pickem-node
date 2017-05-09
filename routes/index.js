@@ -23,7 +23,7 @@ router.get('/schedule/:week([0-9]{1,2})', schAPI.showWeekSchedule); //DONE
 router.get('/schedule/live/', liveAPI.showLive); //DONE
 
 //Standing APIs
-router.get('/standings', userAPI.getStandings);
+router.get('/standings', userAPI.getStandings); //DONE
 
 //SmackTalk APIs
 router.get('/smacktalk', rantAPI.getForumList); //DONE

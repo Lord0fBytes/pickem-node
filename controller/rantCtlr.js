@@ -47,18 +47,28 @@ module.exports.getForumOne = function(req, res){
 };
 
 module.exports.postNewRant = function(req, res){
-  var db = dbconn.get();
-  var collection = db.collection('smacktalks');
   var skip = 0;
   var limit = 5;
-  collection
-  .find()
-  .skip(skip)
-  .limit(limit)
-  .toArray(function(err, docs){
-    console.log("Full Forum Details");
-    res.json(docs);
-  });
+  Rant
+  .create({
+    title: req.body.title,
+    rant: req.body.rant,
+    author: req.body.author,
+    authoremail: req.body.authorEmail
+  }, function(err, rant){
+    if(err) {
+      console.log("Error creating rant");
+      res
+        .status(40)
+        .json(err);
+    }
+    else {
+      console.log("Created new rant");
+      res
+        .status(201)
+        .json(rant);
+    }
+  })
 };
 
 module.exports.putUpdateRant = function(req, res){
