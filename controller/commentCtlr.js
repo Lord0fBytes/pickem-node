@@ -5,12 +5,10 @@ module.exports.getOneComment = function(req,res){
   var rantId = req.params.id;
   var cmtId = req.params.commentId;
   Comments
-    .findOne({
-      '_id' : rantId,
-      'comments._id' : cmtId
-    })
-    .select({"comments":1})
-    .exec(function(err, comment){
+    .findById(rantId)
+    .exec(function(err, rant){
+      console.log("Rant: " + rantId + " comment: " + cmtId);
+      var commentOne = rant.comments.id(cmtId);
       if(err){
         res
           .status(500)
@@ -19,7 +17,7 @@ module.exports.getOneComment = function(req,res){
       else {
         res
           .status(201)
-          .json(comment)
+          .json(commentOne)
       }
     });
 }
@@ -27,9 +25,8 @@ module.exports.getOneComment = function(req,res){
 module.exports.getAllComments = function(req,res){
   var rantId = req.params.id;
   Comments
-    .find({
-      '_id' : rantId
-    }, {comments:1})
+    .findById(rantId)
+    .select('comments')
     .exec(function(err, comment){
       if(err){
         res

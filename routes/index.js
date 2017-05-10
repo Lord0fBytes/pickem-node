@@ -33,10 +33,10 @@ router
   .delete('/smacktalk/:id', rantAPI.delRemoveRant);
 router.post('/smacktalk/', rantAPI.postNewRant);//DONE
 //Comments APIs
-router.get('/smacktalk/:id/comment/', commentAPI.getAllComments)
-  .post('/smacktalk/:id/comment', commentAPI.postNewComment);
+router.get('/smacktalk/:id/comment/', commentAPI.getAllComments) //DONE
+  .post('/smacktalk/:id/comment', commentAPI.postNewComment); //DONE
 router
-  .get('/smacktalk/:id/comment/:commentId', commentAPI.getOneComment)
+  .get('/smacktalk/:id/comment/:commentId', commentAPI.getOneComment) //DONE
   .put('/smacktalk/:id', commentAPI.putUpdateComment)
   .delete('/smacktalk/:id', commentAPI.delRemoveComment);
 
