@@ -28,7 +28,7 @@ module.exports.getForumList = function(req, res){
 module.exports.getForumOne = function(req, res){
   Rant
   .find({
-    'rantId': parseInt(req.params.id, 10)
+    '_id': req.params.id
   })
   .exec(function(err, rants) {
     console.log(err);

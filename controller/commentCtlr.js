@@ -1,13 +1,34 @@
 var mongoose = require('mongoose');
 var Comments = mongoose.model('smacktalk');
 
-module.exports.getComment = function(req,res){
+module.exports.getOneComment = function(req,res){
   var rantId = req.params.id;
   var cmtId = req.params.commentId;
   Comments
+    .findOne({
+      '_id' : rantId,
+      'comments._id' : cmtId
+    })
+    .select({"comments":1})
+    .exec(function(err, comment){
+      if(err){
+        res
+          .status(500)
+          .json(err)
+      }
+      else {
+        res
+          .status(201)
+          .json(comment)
+      }
+    });
+}
+
+module.exports.getAllComments = function(req,res){
+  var rantId = req.params.id;
+  Comments
     .find({
-      'rantId' : rantId,
-      'comments.commentId' : cmtId
+      '_id' : rantId
     }, {comments:1})
     .exec(function(err, comment){
       if(err){
