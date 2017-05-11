@@ -76,3 +76,22 @@ module.exports.getStandings = function(req, res){
       }
     });
 };
+
+module.exports.getAllUsers = function(req, res){
+  User
+    .find({})
+    .exec(function(err, users) {
+      if(err){
+        console.log("Error getting users");
+        res
+          .status(400)
+          .json(err);
+      }
+      else {
+        console.log("Getting Users");
+        res
+          .status(201)
+          .json(users);
+      }
+    });
+}

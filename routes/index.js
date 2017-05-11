@@ -43,7 +43,9 @@ router
 
 //User APIs
 router.get('/users/:username', userAPI.getUser); //DONE
-router.post('/users', userAPI.postAddUser); //DONE
+router.post('/users', userAPI.postAddUser) //DONE
+  .get('/users', userAPI.getAllUsers); //DONE
+//router.patch('/users/:username/addWin', userAPI.addWinUser);
 
 //Invalid URL
 router.get('*', function(req, res){
