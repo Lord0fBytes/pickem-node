@@ -23,6 +23,22 @@ module.exports.getUser = function(req, res){
   });
 };
 
+module.exports.addWinUser = function(req, res) {
+  console.log("Adding wins to user", req.params.user);
+  User
+  .findOneAndUpdate(
+    {user: req.params.user},
+    {$set:{"stats.wins" : 0/*, losses:0, weeks:0, rants:0, comments: 0*/}},
+    function(err, doc){
+      if(err){
+        console.log("Error adding wins");
+      }
+      console.log(doc);
+    }
+  )
+
+};
+
 module.exports.postAddUser = function(req, res){
   console.log("Creating new user...");
   User
